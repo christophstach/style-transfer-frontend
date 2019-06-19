@@ -1,0 +1,15 @@
+<div *ngFor="let style of styles$ | async" (click)="selectStyle(style.id)"
+     class="style"
+     [ngClass]="{'selected': style === (activeStyle$ | async)}"
+     [ngStyle]="{backgroundImage: 'url(assets/styles/'+ style.name.split('-').join('_') + '.jpg)'}">
+  <div class="style-name">
+    <h3>
+      <span class="badge badge-primary">{{style.name.split('-').join(' ')  | titlecase}}</span>
+    </h3>
+  </div>
+
+  <div class="style-wrapper">
+
+
+  </div>
+</div>

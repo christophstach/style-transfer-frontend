@@ -1,0 +1,36 @@
+<nb-layout [ngClass]="{'handset': isHandset$ | async}">
+  <nb-layout-header fixed>
+    <div class="inner-header">
+      <div class="inner-header-left">
+        Stylized
+      </div>
+
+      <div class="inner-header-right">
+        <nb-actions nbPopoverTrigger="noop" nbPopover="Switch between webcam and upload mode and choose your style.">
+          <nb-action *ngIf="(routedUrl$ | async) === '/'" (click)="routeToUpload($event)" title="Upload"
+                     icon="fas fa-upload"></nb-action>
+          <nb-action *ngIf="(routedUrl$ | async) === '/upload'" (click)="routeToCamera($event)" title="Webcam"
+                     icon="fas fa-camera"></nb-action>
+          <nb-action (click)="toggleSidebar($event)" title="Styles" icon="fas fa-images"></nb-action>
+        </nb-actions>
+      </div>
+    </div>
+  </nb-layout-header>
+
+  <nb-layout-column [ngClass]="{'p-0': isHandset$ | async}">
+    <router-outlet></router-outlet>
+  </nb-layout-column>
+
+
+  <nb-sidebar right state="collapsed" tag="main" fixed>
+    <app-sidebar></app-sidebar>
+  </nb-sidebar>
+
+  <app-sidebar></app-sidebar>
+
+  <!--
+  <nb-layout-footer fixed>
+    &copy; Christoph Stach
+  </nb-layout-footer>
+  -->
+</nb-layout>

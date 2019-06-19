@@ -1,0 +1,16 @@
+.webcam-preview-wrapper,
+.styled-image-wrapper {
+  width: auto;
+  height: calc(100vh - 76px - 63px - 89px - 61px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+
+.webcam-preview,
+.styled-image {
+  display: block;
+  max-width: 100%;
+  max-height: 100%;
+}

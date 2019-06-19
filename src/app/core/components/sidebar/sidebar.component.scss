@@ -1,0 +1,51 @@
+
+.style {
+  border: 3px solid #aaaaaa;
+  border-radius: 0.5rem;
+  background-repeat: no-repeat;
+  background-attachment: scroll;
+  background-position: center center;
+  background-size: cover;
+
+
+  &.selected {
+    border: 3px solid #00d977;
+  }
+
+
+  margin: 1rem 0;
+  cursor: pointer;
+  user-select: none;
+
+  .style-name {
+    .badge {
+      white-space: normal;
+    }
+    margin: 0.5rem;
+  }
+
+  .style-wrapper {
+    display: flex;
+    align-items: center;
+
+    padding: 50px;
+
+
+
+    .style-image-wrapper {
+      padding: 0.4rem;
+
+      .style-image {
+        width: 60px;
+        height: 60px;
+        display: block;
+        border-radius: 0.5rem;
+      }
+    }
+
+    .style-image-params-wrapper {
+      font-size: 0.55em;
+      padding: 0.4rem;
+    }
+  }
+}

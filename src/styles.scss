@@ -1,0 +1,48 @@
+@import 'themes';
+@import '~@nebular/theme/styles/globals';
+
+@include nb-install() {
+  @include nb-theme-global();
+}
+
+@import '~@nebular/bootstrap/styles/globals';
+
+@include nb-install() {
+  @include nb-bootstrap-global();
+}
+
+/* You can add global styles to this file, and also import other style files */
+
+.webcam-wrapper {
+  display: flex !important;
+  height: calc(100vh - 76px - 63px - 89px - 61px);
+  align-items: center;
+  justify-content: center;
+
+  video {
+    max-width: 100%;
+    max-height: 100%;
+  }
+}
+
+.layout-container {
+  nb-spinner.active-spinner {
+    z-index: 998;
+  }
+}
+
+.handset nb-card {
+  border-radius: 0;
+}
+
+.handset {
+  .col-lg-4 {
+    padding: 0 !important;
+    margin: 0 !important;
+  }
+}
+
+[hidden] {
+  visibility: hidden;
+  display: none;
+}

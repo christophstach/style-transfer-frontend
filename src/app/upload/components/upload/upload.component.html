@@ -1,0 +1,47 @@
+<div class="row row-eq-height">
+  <div class="col-lg-6 mb-4">
+    <nb-card class="mb-0 h-100">
+      <nb-card-header>Upload a photo</nb-card-header>
+
+      <nb-card-body class="h-100 d-flex justify-content-center align-items-center">
+        <input #uploadInput type="file" accept="image/jpeg, image/png, image/gif" (change)="onFileChange($event)">
+      </nb-card-body>
+
+      <nb-card-footer>
+        <button nbButton hero status="primary" (click)="stylize($event)" [nbSpinner]="loading"
+                [disabled]="!selectedImage || loading" title="Stylize">
+          <i class="fas fa-magic"></i> Stylize
+        </button>
+      </nb-card-footer>
+    </nb-card>
+  </div>
+
+
+  <div *ngIf="loading || apiResponse" class="col-lg-6 mb-4">
+    <nb-card class="mb-0 h-100" [nbSpinner]="loading">
+      <nb-card-header>Your styled photo</nb-card-header>
+
+      <img #styledImage class="styled-image" *ngIf="apiResponse" [src]="apiResponse.data.styledImageUrl"
+           alt="Picture taken with the webcam">
+      <nb-card-body *ngIf="loading">
+        <div #styledImageEmpty></div>
+      </nb-card-body>
+
+      <nb-card-footer>
+        <button nbButton hero status="primary" (click)="download($event)" title="Download"
+                class="mr-3">
+          <i class="fas fa-download"></i>
+        </button>
+
+        <button *ngIf="hasShareFeature" nbButton hero status="success" (click)="share($event)" title="Share" class="mr-3">
+          <i class="fas fa-share-alt"></i>
+        </button>
+
+        <button nbButton hero status="danger" (click)="cancel($event)" title="Cancel">
+          <i class="fas fa-times"></i>
+        </button>
+
+      </nb-card-footer>
+    </nb-card>
+  </div>
+</div>

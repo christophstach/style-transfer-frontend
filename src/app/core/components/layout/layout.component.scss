@@ -1,0 +1,16 @@
+.inner-header {
+  display: flex;
+  width: 100%;
+
+  .inner-header-left {
+    flex-grow: 1;
+    padding: 0 1.25rem;
+    font-size: 1.2rem;
+    font-weight: 500;
+    white-space: nowrap;
+  }
+
+  .inner-header-right {
+
+  }
+}
