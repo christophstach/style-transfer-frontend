@@ -4,13 +4,14 @@ import { WebcamModule } from 'ngx-webcam';
 import {
   NbActionsModule,
   NbButtonModule,
-  NbCardModule,
+  NbCardModule, NbIconModule,
   NbLayoutModule, NbPopoverModule, NbSelectModule,
   NbSidebarModule,
   NbSpinnerModule,
   NbThemeModule
 } from '@nebular/theme';
 import { RouterModule } from '@angular/router';
+import { NbEvaIconsModule } from '@nebular/eva-icons';
 
 @NgModule({
   declarations: [],
@@ -18,6 +19,8 @@ import { RouterModule } from '@angular/router';
     CommonModule,
     RouterModule,
 
+    NbEvaIconsModule,
+    NbIconModule,
     NbThemeModule,
     NbSidebarModule,
     NbActionsModule,
@@ -34,7 +37,9 @@ import { RouterModule } from '@angular/router';
     CommonModule,
     RouterModule,
 
+    NbEvaIconsModule,
     NbThemeModule,
+    NbIconModule,
     NbSidebarModule,
     NbActionsModule,
     NbLayoutModule,

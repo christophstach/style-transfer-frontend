@@ -8,10 +8,10 @@
       <div class="inner-header-right">
         <nb-actions nbPopoverTrigger="noop" nbPopover="Switch between webcam and upload mode and choose your style.">
           <nb-action *ngIf="(routedUrl$ | async) === '/'" (click)="routeToUpload($event)" title="Upload"
-                     icon="fas fa-upload"></nb-action>
+                     icon="cloud-upload-outline"></nb-action>
           <nb-action *ngIf="(routedUrl$ | async) === '/upload'" (click)="routeToCamera($event)" title="Webcam"
-                     icon="fas fa-camera"></nb-action>
-          <nb-action (click)="toggleSidebar($event)" title="Styles" icon="fas fa-images"></nb-action>
+                     icon="camera-outline"></nb-action>
+          <nb-action (click)="toggleSidebar($event)" title="Styles" icon="image-outline"></nb-action>
         </nb-actions>
       </div>
     </div>

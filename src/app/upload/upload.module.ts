@@ -8,7 +8,7 @@ import { UploadComponent } from './components/upload/upload.component';
   declarations: [UploadComponent],
   imports: [
     SharedModule,
-    UploadRoutingModule
+    UploadRoutingModule,
   ]
 })
 export class UploadModule {
