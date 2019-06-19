@@ -10,9 +10,9 @@ import { saveAs } from 'file-saver';
   styleUrls: ['./upload.component.scss']
 })
 export class UploadComponent implements OnInit {
-  @ViewChild('styledImageEmpty') styledImageEmpty: ElementRef<HTMLDivElement>;
-  @ViewChild('styledImage') styledImage: ElementRef<HTMLImageElement>;
-  @ViewChild('uploadInput') uploadInput: ElementRef<HTMLInputElement>;
+  @ViewChild('styledImageEmpty', { static: false }) styledImageEmpty: ElementRef<HTMLDivElement>;
+  @ViewChild('styledImage', { static: false }) styledImage: ElementRef<HTMLImageElement>;
+  @ViewChild('uploadInput', { static: true }) uploadInput: ElementRef<HTMLInputElement>;
 
   error: any;
   loading: boolean;

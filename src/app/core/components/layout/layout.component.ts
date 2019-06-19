@@ -14,7 +14,7 @@ import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
   styleUrls: ['./layout.component.scss']
 })
 export class LayoutComponent implements OnInit, AfterViewInit {
-  @ViewChild(NbPopoverDirective) actionsPopover: NbPopoverDirective;
+  @ViewChild(NbPopoverDirective, { static: true }) actionsPopover: NbPopoverDirective;
 
   routedUrl$: Observable<string>;
   tutorial$: Observable<boolean>;

@@ -15,9 +15,9 @@ import { map } from 'rxjs/operators';
   styleUrls: ['./webcam.component.scss']
 })
 export class WebcamComponent implements OnInit {
-  @ViewChild('webcamPreview') webcamPreview: ElementRef<HTMLImageElement>;
-  @ViewChild('styledImageEmpty') styledImageEmpty: ElementRef<HTMLDivElement>;
-  @ViewChild('styledImage') styledImage: ElementRef<HTMLImageElement>;
+  @ViewChild('webcamPreview', { static: false }) webcamPreview: ElementRef<HTMLImageElement>;
+  @ViewChild('styledImageEmpty', { static: false }) styledImageEmpty: ElementRef<HTMLDivElement>;
+  @ViewChild('styledImage', { static: false }) styledImage: ElementRef<HTMLImageElement>;
 
   webcamImage: WebcamImage;
   webcamCaptureTrigger$: Subject<void> = new Subject<void>();
