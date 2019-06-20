@@ -4,11 +4,12 @@
       <nb-card-header>Take a photo</nb-card-header>
 
       <webcam [trigger]="webcamCaptureTrigger$" [captureImageData]="true" [videoOptions]="videoOptions"
-              (initError)="onInitError($event)" (imageCapture)="onImageCapture($event)"></webcam>
+              (initError)="onInitError($event)" (imageCapture)="onImageCapture($event)" mirrorImage="never"></webcam>
 
       <nb-card-footer>
         <button nbButton status="primary" (click)="capture($event);" title="Capture">
-          <nb-icon icon="camera-outline"></nb-icon>Capture
+          <nb-icon icon="camera-outline"></nb-icon>
+          Capture
         </button>
       </nb-card-footer>
     </nb-card>
@@ -25,7 +26,8 @@
       <nb-card-footer>
         <button nbButton status="primary" (click)="stylize($event)" [disabled]="loading" [nbSpinner]="loading"
                 title="Stylize" class="mr-3">
-          <nb-icon icon="brush"></nb-icon>Stylize
+          <nb-icon icon="brush"></nb-icon>
+          Stylize
         </button>
 
         <button nbButton status="info" (click)="previous($event)" title="Previous">
