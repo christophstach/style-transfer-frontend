@@ -17,20 +17,14 @@
     </div>
   </nb-layout-header>
 
-  <nb-layout-column [ngClass]="{'p-0': isHandset$ | async}">
-    <router-outlet></router-outlet>
-  </nb-layout-column>
-
 
   <nb-sidebar right state="collapsed" tag="main" fixed>
     <app-sidebar></app-sidebar>
   </nb-sidebar>
 
-  <app-sidebar></app-sidebar>
+  <nb-layout-column >
+    <router-outlet></router-outlet>
+  </nb-layout-column>
 
-  <!--
-  <nb-layout-footer fixed>
-    &copy; Christoph Stach
-  </nb-layout-footer>
-  -->
+
 </nb-layout>

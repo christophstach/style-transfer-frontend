@@ -1,5 +1,5 @@
 <div class="row row-eq-height">
-  <div class="col-lg-6 mb-4">
+  <div class="col-lg-6">
     <nb-card class="mb-0 h-100">
       <nb-card-header>Upload a photo</nb-card-header>
 
@@ -17,7 +17,7 @@
   </div>
 
 
-  <div *ngIf="loading || apiResponse" class="col-lg-6 mb-4">
+  <div *ngIf="loading || apiResponse" class="col-lg-6">
     <nb-card class="mb-0 h-100" [nbSpinner]="loading">
       <nb-card-header>Your styled photo</nb-card-header>
 

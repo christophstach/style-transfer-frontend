@@ -26,19 +26,25 @@
 }
 
 .layout-container {
-  nb-spinner.active-spinner {
+  nb-spinner {
     z-index: 998;
   }
 }
 
-.handset nb-card {
-  border-radius: 0;
-}
-
 .handset {
-  .col-lg-4 {
-    padding: 0 !important;
-    margin: 0 !important;
+  app-webcam,
+  app-upload {
+    > .row {
+      margin: -16px;
+
+      > div {
+        padding: 0;
+      }
+    }
+  }
+
+  nb-card {
+    border-radius: 0;
   }
 }
 

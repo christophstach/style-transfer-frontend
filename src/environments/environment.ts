@@ -4,8 +4,8 @@
 
 export const environment = {
   production: false,
-  apiHost: 'http://127.0.0.1:5000',
-  // apiHost: 'https://api.stylized.christophstach.me'
+  // apiHost: 'http://127.0.0.1:5000',
+  apiHost: 'https://api.stylized.christophstach.me'
 };
 
 /*

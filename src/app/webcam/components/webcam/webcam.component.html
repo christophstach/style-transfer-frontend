@@ -1,70 +1,5 @@
-<!--
-<nb-card [hidden]="webcamImage" class="mb-0 h-100">
-  <nb-card-header>Take a photo</nb-card-header>
-
-  <webcam class="h-100" [trigger]="webcamCaptureTrigger$" [captureImageData]="true" [videoOptions]="videoOptions"
-          (initError)="onInitError($event)" (imageCapture)="onImageCapture($event)"></webcam>
-
-  <nb-card-footer>
-    <button nbButton hero status="primary" (click)="capture($event);" title="Capture">
-      <i class="fas fa-camera"></i> Capture
-    </button>
-  </nb-card-footer>
-</nb-card>
-
-
-<nb-card [hidden]="!webcamImage || loading || !apiResponse" class="mb-0 h-100">
-  <nb-card-header>Photo you took</nb-card-header>
-
-  <div class="h-100 d-flex align-items-center justify-content-center">
-    <img #webcamPreview class="webcam-preview" [src]="webcamImage.imageAsDataUrl" alt="Picture taken with the webcam">
-  </div>
-
-
-  <nb-card-footer>
-    <button nbButton hero status="primary" (click)="stylize($event)" [disabled]="loading" [nbSpinner]="loading"
-            title="Stylize">
-      <i class="fas fa-magic"></i> Stylize
-    </button>
-  </nb-card-footer>
-</nb-card>
-
-
-<nb-card [hidden]="!webcamImage || (!loading || !apiResponse)" class="mb-0 h-100" [nbSpinner]="loading">
-  <nb-card-header>Your styled photo</nb-card-header>
-
-  <div *ngIf="apiResponse" class="h-100 d-flex align-items-center justify-content-center">
-    <img #styledImage class="styled-image" [src]="apiResponse.data.styledImageUrl"
-         alt="Picture taken with the webcam">
-  </div>
-
-
-  <nb-card-body *ngIf="loading">
-    <div #styledImageEmpty></div>
-  </nb-card-body>
-
-
-  <nb-card-footer>
-    <button nbButton hero status="primary" (click)="download($event)" title="Download"
-            class="mr-3">
-      <i class="fas fa-download"></i>
-    </button>
-
-    <button *ngIf="hasShareFeature" nbButton hero status="success" (click)="share($event)" title="Share"
-            class="mr-3">
-      <i class="fas fa-share-alt"></i>
-    </button>
-
-    <button nbButton hero status="danger" (click)="cancel($event)" title="Cancel">
-      <i class="fas fa-times"></i>
-    </button>
-
-  </nb-card-footer>
-</nb-card>
--->
-
 <div class="row">
-  <div class="col-lg-4 mb-4" [hidden]="webcamImage">
+  <div class="col-lg-4" [hidden]="webcamImage">
     <nb-card class="mb-0 h-100">
       <nb-card-header>Take a photo</nb-card-header>
 
@@ -79,7 +14,7 @@
     </nb-card>
   </div>
 
-  <div *ngIf="webcamImage" class="col-lg-4 mb-4" [hidden]="loading || apiResponse">
+  <div *ngIf="webcamImage" class="col-lg-4" [hidden]="loading || apiResponse">
     <nb-card class="mb-0">
       <nb-card-header>Photo you took</nb-card-header>
       <div class="webcam-preview-wrapper">
@@ -100,7 +35,7 @@
     </nb-card>
   </div>
 
-  <div *ngIf="webcamImage && (loading || apiResponse)" class="col-lg-4 mb-4">
+  <div *ngIf="webcamImage && (loading || apiResponse)" class="col-lg-4">
     <nb-card class="mb-0 h-100" [nbSpinner]="loading">
       <nb-card-header>Your styled photo</nb-card-header>
 
