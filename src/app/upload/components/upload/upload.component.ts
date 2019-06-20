@@ -10,9 +10,9 @@ import { saveAs } from 'file-saver';
   styleUrls: ['./upload.component.scss']
 })
 export class UploadComponent implements OnInit {
-  @ViewChild('styledImageEmpty', { static: false }) styledImageEmpty: ElementRef<HTMLDivElement>;
-  @ViewChild('styledImage', { static: false }) styledImage: ElementRef<HTMLImageElement>;
-  @ViewChild('uploadInput', { static: true }) uploadInput: ElementRef<HTMLInputElement>;
+  @ViewChild('styledImageEmpty', {static: false}) styledImageEmpty: ElementRef<HTMLDivElement>;
+  @ViewChild('styledImage', {static: false}) styledImage: ElementRef<HTMLImageElement>;
+  @ViewChild('uploadInput', {static: true}) uploadInput: ElementRef<HTMLInputElement>;
 
   error: any;
   loading: boolean;
@@ -28,10 +28,23 @@ export class UploadComponent implements OnInit {
   ngOnInit() {
   }
 
+
   onFileChange(event: Event) {
     event.preventDefault();
 
     this.selectedImage = (event.target as HTMLInputElement).files.item(0);
+  }
+
+  onChooseFile(event: Event) {
+    event.preventDefault();
+
+    this.uploadInput.nativeElement.click();
+  }
+
+  onRemoveFile(event: Event) {
+    event.preventDefault();
+
+    this.selectedImage = null;
   }
 
   stylize(event: Event) {

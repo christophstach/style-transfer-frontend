@@ -4,8 +4,11 @@ import { WebcamModule } from 'ngx-webcam';
 import {
   NbActionsModule,
   NbButtonModule,
-  NbCardModule, NbIconModule,
-  NbLayoutModule, NbPopoverModule, NbSelectModule,
+  NbCardModule,
+  NbIconModule,
+  NbLayoutModule,
+  NbPopoverModule,
+  NbSelectModule,
   NbSidebarModule,
   NbSpinnerModule,
   NbThemeModule

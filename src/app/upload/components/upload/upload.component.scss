@@ -3,3 +3,7 @@
   height: auto;
   display: block;;
 }
+
+input[type=file] {
+  display: none;
+}

@@ -5,12 +5,19 @@
 
       <nb-card-body class="h-100 d-flex justify-content-center align-items-center">
         <input #uploadInput type="file" accept="image/jpeg, image/png, image/gif" (change)="onFileChange($event)">
+        <button *ngIf="!this.selectedImage" nbButton (click)="onChooseFile($event)" title="Choose File">Choose File
+        </button>
+
+        <button *ngIf="this.selectedImage" nbButton (click)="onRemoveFile($event)" status="danger" title="Remove File">
+          Remove {{this.selectedImage.name}}</button>
+
       </nb-card-body>
 
       <nb-card-footer>
-        <button nbButton hero status="primary" (click)="stylize($event)" [nbSpinner]="loading"
+        <button nbButton status="primary" (click)="stylize($event)" [nbSpinner]="loading"
                 [disabled]="!selectedImage || loading" title="Stylize">
-          <nb-icon icon="camera-outline"></nb-icon> Stylize
+          <nb-icon icon="brush"></nb-icon>
+          Stylize
         </button>
       </nb-card-footer>
     </nb-card>
@@ -28,17 +35,16 @@
       </nb-card-body>
 
       <nb-card-footer>
-        <button nbButton hero status="primary" (click)="download($event)" title="Download"
-                class="mr-3">
-          <i class="fas fa-download"></i>
+        <button nbButton status="primary" (click)="download($event)" title="Download" class="mr-3">
+          <nb-icon icon="download"></nb-icon>
         </button>
 
-        <button *ngIf="hasShareFeature" nbButton hero status="success" (click)="share($event)" title="Share" class="mr-3">
-          <i class="fas fa-share-alt"></i>
+        <button *ngIf="hasShareFeature" nbButton status="success" (click)="share($event)" title="Share" class="mr-3">
+          <nb-icon icon="share"></nb-icon>
         </button>
 
-        <button nbButton hero status="danger" (click)="cancel($event)" title="Cancel">
-          <i class="fas fa-times"></i>
+        <button nbButton status="danger" (click)="cancel($event)" title="Cancel">
+          <nb-icon icon="close"></nb-icon>
         </button>
 
       </nb-card-footer>
