@@ -1,11 +1,11 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { combineLatest, Observable } from 'rxjs';
+import { Component, OnInit } from '@angular/core';
+import { Observable } from 'rxjs';
 import { Style } from '../../models/style.model';
-import { filter, map, withLatestFrom } from 'rxjs/operators';
-import { ID } from '@datorama/akita';
+import { filter } from 'rxjs/operators';
+import { ID, Order } from '@datorama/akita';
 import { StylesService } from '../../services/styles.service';
 import { StylesQuery } from '../../queries/styles.query';
-import { NbPopoverDirective, NbSidebarService } from '@nebular/theme';
+import { NbSidebarService } from '@nebular/theme';
 
 @Component({
   selector: 'app-sidebar',
@@ -24,7 +24,10 @@ export class SidebarComponent implements OnInit {
     this.activeStyle$ = this.stylesQuery.selectActive() as Observable<Style>;
     this.stylesService.list().subscribe();
 
-    this.styles$ = this.stylesQuery.selectAll();
+    this.styles$ = this.stylesQuery.selectAll({
+      sortBy: 'name',
+      sortByOrder: Order.ASC
+    });
 
     this.stylesQuery.selectFirst().pipe(
       filter(Boolean)
