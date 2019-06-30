@@ -1,6 +1,6 @@
 <div class="row row-eq-height">
   <div class="col-lg-6">
-    <nb-card class="mb-0 h-100">
+    <nb-card class="mb-0 h-100" [hidden]="loading || apiResponse">
       <nb-card-header>Upload a photo</nb-card-header>
 
       <nb-card-body class="h-100 d-flex justify-content-center align-items-center">
