@@ -1,20 +1,21 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, Inject, ViewChild } from '@angular/core';
 import { WebcamImage, WebcamInitError } from 'ngx-webcam';
 import { Observable, Subject } from 'rxjs';
 import { dataUrlToBlob } from '../../../core/helpers/data-url-to-blob';
 import { ApplyStyleResponse, StylesService } from '../../../core/services/styles.service';
 import { StylesQuery } from '../../../core/queries/styles.query';
 import { Style } from '../../../core/models/style.model';
-import { saveAs } from 'file-saver';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { map } from 'rxjs/operators';
+import { NAVIGATOR_TOKEN } from '../../../shared/injection-tokens';
+import { NbToastrService } from '@nebular/theme';
 
 @Component({
   selector: 'app-webcam',
   templateUrl: './webcam.component.html',
   styleUrls: ['./webcam.component.scss']
 })
-export class WebcamComponent implements OnInit {
+export class WebcamComponent {
   @ViewChild('webcamPreview', {static: false}) webcamPreview: ElementRef<HTMLImageElement>;
   @ViewChild('styledImageEmpty', {static: false}) styledImageEmpty: ElementRef<HTMLDivElement>;
   @ViewChild('styledImage', {static: false}) styledImage: ElementRef<HTMLImageElement>;
@@ -25,6 +26,7 @@ export class WebcamComponent implements OnInit {
   loading: boolean;
   apiResponse: ApplyStyleResponse;
   hasShareFeature: boolean;
+  hasExtendedShareFeature: boolean;
   videoOptions: MediaTrackConstraints = {
     width: 1440,
     echoCancellation: false,
@@ -36,17 +38,18 @@ export class WebcamComponent implements OnInit {
   constructor(
     private breakpointObserver: BreakpointObserver,
     private stylesService: StylesService,
-    private stylesQuery: StylesQuery
+    private stylesQuery: StylesQuery,
+    private toastrService: NbToastrService,
+    @Inject(NAVIGATOR_TOKEN) private navigator: ExtendedNavigator
   ) {
-    this.hasShareFeature = !!((window.navigator as any).share);
+    this.hasShareFeature = !!this.navigator.share;
+    this.hasExtendedShareFeature = this.hasShareFeature && !!this.navigator.canShare;
 
     this.isHandset$ = this.breakpointObserver.observe(Breakpoints.Handset).pipe(
       map(value => value.matches)
     );
   }
 
-  ngOnInit() {
-  }
 
   onImageCapture(webcamImage: WebcamImage) {
     this.webcamImage = webcamImage;
@@ -58,7 +61,8 @@ export class WebcamComponent implements OnInit {
 
   onInitError(error: WebcamInitError) {
     this.error = error;
-    alert(error.message);
+
+    this.toastrService.danger(error.message, 'Error');
   }
 
   capture(event: Event) {
@@ -94,6 +98,8 @@ export class WebcamComponent implements OnInit {
           this.loading = false;
           this.apiResponse = null;
           this.error = error;
+
+          this.toastrService.danger(error.message, 'Error');
         }
       );
     }
@@ -102,18 +108,35 @@ export class WebcamComponent implements OnInit {
   download(event: Event) {
     event.preventDefault();
 
-    saveAs(this.apiResponse.data.styledImageUrl);
+    saveAs(this.apiResponse.data.styledImageUrl, 'stylized-webcam.jpg');
   }
 
-  share(event: Event) {
+  async share(event: Event) {
     event.preventDefault();
 
     if (this.hasShareFeature) {
-      (window.navigator as any).share({
-        title: 'Stylized',
-        text: 'Image styled with stylized',
-        url: this.apiResponse.data.styledImageUrl
-      } as any);
+      const file = await fetch(this.apiResponse.data.styledImageUrl)
+        .then(response => response.blob())
+        .then((blob: any) => {
+          blob.lastModifiedDate = new Date();
+          blob.name = 'temp.jpg';
+
+          return blob as File;
+        });
+
+      if (this.hasExtendedShareFeature && this.navigator.canShare({files: [file]})) {
+        this.navigator.share({
+          title: 'Stylized',
+          text: 'Image styled with stylized',
+          files: [file]
+        }).then().catch(error => this.toastrService.danger(error, 'Error'));
+      } else {
+        this.navigator.share({
+          title: 'Stylized',
+          text: 'Image styled with stylized',
+          url: this.apiResponse.data.styledImageUrl
+        }).then().catch(error => this.toastrService.danger(error, 'Error'));
+      }
     }
   }
 

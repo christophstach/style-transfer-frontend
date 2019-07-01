@@ -1,31 +1,47 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, Inject, ViewChild } from '@angular/core';
 import { Style } from '../../../core/models/style.model';
 import { ApplyStyleResponse, StylesService } from '../../../core/services/styles.service';
 import { StylesQuery } from '../../../core/queries/styles.query';
 import { saveAs } from 'file-saver';
+import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
+import { map } from 'rxjs/operators';
+import { Observable } from 'rxjs';
+import { NAVIGATOR_TOKEN } from '../../../shared/injection-tokens';
+import { NbToastrService } from '@nebular/theme';
+
 
 @Component({
   selector: 'app-upload',
   templateUrl: './upload.component.html',
   styleUrls: ['./upload.component.scss']
 })
-export class UploadComponent implements OnInit {
+export class UploadComponent {
   @ViewChild('styledImageEmpty', {static: false}) styledImageEmpty: ElementRef<HTMLDivElement>;
   @ViewChild('styledImage', {static: false}) styledImage: ElementRef<HTMLImageElement>;
-  @ViewChild('uploadInput', {static: true}) uploadInput: ElementRef<HTMLInputElement>;
+  @ViewChild('uploadInput', {static: false}) uploadInput: ElementRef<HTMLInputElement>;
 
   error: any;
   loading: boolean;
   apiResponse: ApplyStyleResponse;
   selectedImage: File;
   hasShareFeature: boolean;
+  hasExtendedShareFeature: boolean;
 
+  isHandset$: Observable<boolean>;
 
-  constructor(private stylesQuery: StylesQuery, private stylesService: StylesService) {
-    this.hasShareFeature = !!((window.navigator as any).share);
-  }
+  constructor(
+    private breakpointObserver: BreakpointObserver,
+    private stylesService: StylesService,
+    private stylesQuery: StylesQuery,
+    private toastrService: NbToastrService,
+    @Inject(NAVIGATOR_TOKEN) private navigator: ExtendedNavigator
+  ) {
+    this.hasShareFeature = !!this.navigator.share;
+    this.hasExtendedShareFeature = this.hasShareFeature && !!this.navigator.canShare;
 
-  ngOnInit() {
+    this.isHandset$ = this.breakpointObserver.observe(Breakpoints.Handset).pipe(
+      map(value => value.matches)
+    );
   }
 
 
@@ -74,6 +90,8 @@ export class UploadComponent implements OnInit {
           this.loading = false;
           this.apiResponse = null;
           this.error = error;
+
+          this.toastrService.danger(error.message, 'Error');
         }
       );
     }
@@ -82,18 +100,37 @@ export class UploadComponent implements OnInit {
   download(event: Event) {
     event.preventDefault();
 
-    saveAs(this.apiResponse.data.styledImageUrl);
+    const fileName = this.uploadInput.nativeElement.files.item(0).name.split('.').slice(0, -1).join('.');
+    saveAs(this.apiResponse.data.styledImageUrl, 'stylized-' + fileName + '.jpg');
   }
 
-  share(event: Event) {
+  async share(event: Event) {
     event.preventDefault();
 
     if (this.hasShareFeature) {
-      (window.navigator as any).share({
-        title: 'Stylized',
-        text: 'Image styled with stylized',
-        url: this.apiResponse.data.styledImageUrl
-      } as any);
+      const file = await fetch(this.apiResponse.data.styledImageUrl)
+        .then(response => response.blob())
+        .then((blob: any) => {
+          blob.lastModifiedDate = new Date();
+          blob.name = 'temp.jpg';
+
+          return blob as File;
+        });
+
+      if (this.hasExtendedShareFeature && this.navigator.canShare({files: [file]})) {
+        this.navigator.share({
+          title: 'Stylized',
+          text: 'Image styled with stylized',
+          files: [file]
+        }).then().catch(error => this.toastrService.danger(error, 'Error'));
+      } else {
+        this.navigator.share({
+          title: 'Stylized',
+          text: 'Image styled with stylized',
+          url: this.apiResponse.data.styledImageUrl
+        }).then().catch(error => this.toastrService.danger(error, 'Error'));
+      }
+
     }
   }
 
