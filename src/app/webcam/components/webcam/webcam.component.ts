@@ -150,9 +150,5 @@ export class WebcamComponent {
     } else {
       this.webcamImage = null;
     }
-
-    setTimeout(() => {
-      this.webcamPreview.nativeElement.scrollIntoView({behavior: 'smooth'});
-    });
   }
 }
