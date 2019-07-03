@@ -118,7 +118,7 @@ export class UploadComponent {
       if (this.hasExtendedShareFeature && this.navigator.canShare({files: [file]})) {
         this.navigator.share({
           title: 'Stylized',
-          text: 'Image styled with Stylized',
+          text: 'Image styled with https://stylized.christophstach.me/',
           files: [file]
         }).then().catch(error => this.toastrService.danger(error, 'Error'));
       } else {
