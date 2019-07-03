@@ -117,12 +117,11 @@ export class WebcamComponent {
     if (this.hasShareFeature) {
       const file = await fetch(this.apiResponse.data.styledImageUrl)
         .then(response => response.blob())
-        .then((blob: any) => {
-          blob.lastModifiedDate = new Date();
-          blob.name = 'temp.jpg';
-
-          return blob as File;
+        .then((blob: Blob) => {
+          return new File([blob], 'temp.jpg');
         });
+
+      console.log(file);
 
       if (this.hasExtendedShareFeature && this.navigator.canShare({files: [file]})) {
         this.navigator.share({
