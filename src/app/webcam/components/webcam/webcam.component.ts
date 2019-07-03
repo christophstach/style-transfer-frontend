@@ -125,13 +125,13 @@ export class WebcamComponent {
       if (this.hasExtendedShareFeature && this.navigator.canShare({files: [file]})) {
         this.navigator.share({
           title: 'Stylized',
-          text: 'Image styled with stylized',
+          text: 'Image styled with Stylized',
           files: [file]
         }).then().catch(error => this.toastrService.danger(error, 'Error'));
       } else {
         this.navigator.share({
           title: 'Stylized',
-          text: 'Image styled with stylized',
+          text: 'Image styled with Stylized',
           url: this.apiResponse.data.styledImageUrl
         }).then().catch(error => this.toastrService.danger(error, 'Error'));
       }
