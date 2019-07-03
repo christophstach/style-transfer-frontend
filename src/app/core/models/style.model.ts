@@ -13,4 +13,14 @@ export interface Style {
   styleImageSize: number;
   styleWeight: number;
   totalVariationWeight: number;
+  metaData: {
+    attribution: {
+      author?: string;
+      name?: string;
+      creditsTo?: string;
+      creditsToUrl?: string;
+      publishedUrl?: string;
+      termsOfUseUrl?: string
+    };
+  };
 }

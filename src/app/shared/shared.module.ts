@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { WebcamModule } from 'ngx-webcam';
 import {
-  NbActionsModule,
+  NbActionsModule, NbAlertModule,
   NbButtonModule,
   NbCardModule,
   NbIconModule,
@@ -33,6 +33,7 @@ import { NbEvaIconsModule } from '@nebular/eva-icons';
     NbSpinnerModule,
     NbSelectModule,
     NbPopoverModule,
+    NbAlertModule,
 
     WebcamModule
   ],
@@ -51,6 +52,7 @@ import { NbEvaIconsModule } from '@nebular/eva-icons';
     NbSpinnerModule,
     NbSelectModule,
     NbPopoverModule,
+    NbAlertModule,
 
     WebcamModule
   ]

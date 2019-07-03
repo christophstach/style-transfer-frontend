@@ -1,8 +1,19 @@
-.styled-image {
-  width: 100%;
-  height: auto;
-  display: block;;
+.styled-image-wrapper {
+  width: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+
 }
+
+.styled-image {
+  display: block;
+  width: 100%;
+  max-width: 100%;
+  max-height: 100%;
+}
+
 
 input[type=file] {
   display: none;

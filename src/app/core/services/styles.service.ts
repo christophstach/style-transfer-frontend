@@ -10,7 +10,7 @@ import { ID } from '@datorama/akita';
 
 export interface ApplyStyleResponse {
   data: {
-    elapsedTime: number;
+    timeElapsed: number;
     styledImageUrl: string;
   };
 }
@@ -26,7 +26,7 @@ export class StylesService {
   constructor(private http: HttpClient, private stylesStore: StylesStore) {
   }
 
-  apply(image: File | Blob, style: string, cuda = false): Observable<ApplyStyleResponse> {
+  apply(image: File | Blob, style: string): Observable<ApplyStyleResponse> {
     const formData = new FormData();
 
     if (image) {
@@ -40,38 +40,25 @@ export class StylesService {
       return null;
     }
 
-    if (cuda) {
-      return this.http
-        .post<ApplyStyleResponse>(`${environment.apiHost}/style-transfer/apply/cuda/${style}`, formData).pipe(
-          map(response => {
-            return {
-              data: {
-                ...response.data,
-                styledImageUrl: environment.apiHost + response.data.styledImageUrl
-              }
-            };
-          })
-        );
-    } else {
-      return this.http
-        .post<ApplyStyleResponse>(`${environment.apiHost}/style-transfer/apply/cpu/${style}`, formData).pipe(
-          map(response => {
-            return {
-              data: {
-                ...response.data,
-                styledImageUrl: environment.apiHost + response.data.styledImageUrl
-              }
-            };
-          })
-        );
-    }
+
+    return this.http
+      .post<ApplyStyleResponse>(`${environment.apiHost}/style-transfer/apply/${style}`, formData).pipe(
+        map(response => {
+          return {
+            data: {
+              ...response.data,
+              styledImageUrl: environment.apiHost + response.data.styledImageUrl
+            }
+          };
+        })
+      );
   }
 
   list(): Observable<Style[]> {
     return this.http
       .get<ListStylesResponse>(`${environment.apiHost}/style-transfer/list-styles`)
       .pipe(
-        map(response => response.data.filter(style => style.name !== '.gitkeep')),
+        map(response => response.data.filter(style => style.name !== '.gitkeep' && style.metaData.attribution.creditsToUrl)),
         tap(styles => {
           this.stylesStore.set(styles);
         })

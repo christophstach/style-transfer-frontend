@@ -28,8 +28,15 @@
     <nb-card class="mb-0 h-100" [nbSpinner]="loading">
       <nb-card-header>Your styled photo</nb-card-header>
 
-      <img #styledImage class="styled-image" *ngIf="apiResponse" [src]="apiResponse.data.styledImageUrl"
-           alt="Picture taken with the webcam">
+      <div class="styled-image-wrapper" *ngIf="apiResponse">
+        <img #styledImage class="styled-image" *ngIf="apiResponse" [src]="apiResponse.data.styledImageUrl"
+             alt="Your styled Image">
+
+        <nb-alert status="info" *ngIf="apiResponse.data.timeElapsed" class="p-2 m-2">
+          Elapsed Time: {{apiResponse.data.timeElapsed | number}} sec
+        </nb-alert>
+      </div>
+
       <nb-card-body *ngIf="loading">
         <div #styledImageEmpty></div>
       </nb-card-body>
