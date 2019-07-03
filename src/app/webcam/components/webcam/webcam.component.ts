@@ -28,9 +28,10 @@ export class WebcamComponent {
   hasShareFeature: boolean;
   hasExtendedShareFeature: boolean;
   videoOptions: MediaTrackConstraints = {
-    width: 1440,
+    width: 1000,
+    height: 1100,
     echoCancellation: false,
-    logicalSurface: false
+    logicalSurface: false,
   };
 
   isHandset$: Observable<boolean>;
