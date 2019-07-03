@@ -121,8 +121,6 @@ export class WebcamComponent {
           return new File([blob], 'temp.jpg');
         });
 
-      console.log(file);
-
       if (this.hasExtendedShareFeature && this.navigator.canShare({files: [file]})) {
         this.navigator.share({
           title: 'Stylized',
