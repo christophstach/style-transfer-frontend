@@ -15,11 +15,12 @@ export interface Style {
   totalVariationWeight: number;
   metaData: {
     attribution: {
-      author?: string;
       name?: string;
-      creditsTo?: string;
-      creditsToUrl?: string;
+      author?: string;
+      authorUrl?: string;
       publishedUrl?: string;
+      publisher?: string;
+      publisherUrl?: string;
       termsOfUseUrl?: string
     };
   };
