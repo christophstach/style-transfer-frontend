@@ -58,7 +58,7 @@ export class StylesService {
     return this.http
       .get<ListStylesResponse>(`${environment.apiHost}/style-transfer/list-styles`)
       .pipe(
-        map(response => response.data.filter(style => style.name !== '.gitkeep' && style.metaData.attribution.creditsToUrl)),
+        map(response => response.data.filter(style => style.name !== '.gitkeep')),
         tap(styles => {
           this.stylesStore.set(styles);
         })
