@@ -2,7 +2,7 @@
      (click)="selectStyle(style.id)"
      class="style"
      [ngClass]="{'selected': style === (activeStyle$ | async)}"
-     [ngStyle]="{backgroundImage: 'url(assets/styles/'+ (style.name.includes('experiment') ? 'starry_night' :  style.name.split('-').join('_')) + '.jpg)'}">
+     [ngStyle]="{backgroundImage: 'url(assets/styles/'+ style.styleImage + ')'}">
   <div class="style-name">
     <h6>
       <span class="badge badge-primary text-left d-block" *ngIf="!style.metaData.attribution.name">{{style.name.split('_').join(' ')  | titlecase}}</span>

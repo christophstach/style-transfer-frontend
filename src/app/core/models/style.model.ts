@@ -13,6 +13,7 @@ export interface Style {
   styleImageSize: number;
   styleWeight: number;
   totalVariationWeight: number;
+  styleImage: string;
   metaData: {
     attribution: {
       name?: string;

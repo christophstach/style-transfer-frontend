@@ -59,6 +59,18 @@ export class StylesService {
       .get<ListStylesResponse>(`${environment.apiHost}/style-transfer/list-styles`)
       .pipe(
         map(response => response.data.filter(style => style.name !== '.gitkeep')),
+        map(styles => {
+          return styles.map(style => {
+            const styleImage = style.name.includes('experiment') ?
+              'the_starry_night.jpg' :
+              style.name.replace('-', '_').replace('vgg16_', '').replace('vgg19_', '') + '.jpg';
+
+            return {
+              ...style,
+              styleImage
+            };
+          });
+        }),
         tap(styles => {
           this.stylesStore.set(styles);
         })
