@@ -7,7 +7,7 @@
     <h6>
       <span class="badge badge-primary text-left d-block" *ngIf="!style.metaData.attribution.name">{{style.name.split('_').join(' ')  | titlecase}}</span>
       <span class="badge badge-primary text-left d-block" *ngIf="style.metaData.attribution.name">
-        {{style.metaData.attribution.name}}<br />
+        {{style.metaData.attribution.name}} ({{style.name.split('_')[0] | titlecase}})<br />
         <small><a target="_blank" [href]="style.metaData.attribution.authorUrl">{{style.metaData.attribution.author}}</a></small><br />
         <small><a target="_blank" [href]="style.metaData.attribution.publisher">{{style.metaData.attribution.publisherUrl}}</a></small>
       </span>
