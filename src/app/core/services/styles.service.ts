@@ -61,9 +61,11 @@ export class StylesService {
         map(response => response.data.filter(style => style.name !== '.gitkeep')),
         map(styles => {
           return styles.map(style => {
-            const styleImage = style.name.includes('experiment') ?
+            const styleImage = style.name.includes('experiment1') ?
               'the_starry_night.jpg' :
-              style.name.replace('-', '_').replace('vgg16_', '').replace('vgg19_', '') + '.jpg';
+              style.name.includes('experiment2') ?
+                'the_scream.jpg' :
+                style.name.replace('-', '_').replace('vgg16_', '').replace('vgg19_', '') + '.jpg';
 
             return {
               ...style,
