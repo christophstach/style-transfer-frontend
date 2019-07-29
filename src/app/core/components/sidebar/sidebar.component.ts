@@ -26,7 +26,8 @@ export class SidebarComponent implements OnInit {
 
     this.styles$ = this.stylesQuery.selectAll({
       sortBy: 'name',
-      sortByOrder: Order.ASC
+      sortByOrder: Order.ASC,
+      filterBy: style => style.bottleneckSize === 5 && style.channelMultiplier === 16
     });
 
     this.stylesQuery.selectFirst().pipe(
