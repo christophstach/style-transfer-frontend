@@ -31,7 +31,6 @@ export class WebcamComponent {
     width: 1000,
     height: 1100,
     echoCancellation: false,
-    logicalSurface: false,
   };
 
   isHandset$: Observable<boolean>;

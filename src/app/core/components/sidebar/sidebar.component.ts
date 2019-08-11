@@ -6,6 +6,7 @@ import { ID, Order } from '@datorama/akita';
 import { StylesService } from '../../services/styles.service';
 import { StylesQuery } from '../../queries/styles.query';
 import { NbSidebarService } from '@nebular/theme';
+import { truthy } from '../../../shared/helpers';
 
 @Component({
   selector: 'app-sidebar',
@@ -31,7 +32,7 @@ export class SidebarComponent implements OnInit {
     });
 
     this.stylesQuery.selectFirst().pipe(
-      filter(Boolean)
+      filter(truthy)
     ).subscribe(style => {
       if (!this.stylesQuery.getActive()) {
         this.stylesService.setActive(style.id);
