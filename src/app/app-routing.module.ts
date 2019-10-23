@@ -1,16 +1,25 @@
 import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
+import { RouterModule, Routes } from '@angular/router';
 
 const routes: Routes = [
   {
     path: '',
     pathMatch: 'full',
-    loadChildren: './webcam/webcam.module#WebcamModule'
+    redirectTo: 'webcam'
+  },
+  {
+    path: '',
+    loadChildren: () => import('./pages/pages.module').then(mod => mod.PagesModule)
+  },
+  {
+    path: 'webcam',
+    pathMatch: 'full',
+    loadChildren:  () => import('./webcam/webcam.module').then(mod => mod.WebcamModule)
   },
   {
     path: 'upload',
     pathMatch: 'full',
-    loadChildren: './upload/upload.module#UploadModule'
+    loadChildren:  () => import('./upload/upload.module').then(mod => mod.UploadModule)
   }
 ];
 
@@ -18,4 +27,5 @@ const routes: Routes = [
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule]
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {
+}

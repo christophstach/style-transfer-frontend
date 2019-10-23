@@ -2,29 +2,47 @@
   <nb-layout-header fixed>
     <div class="inner-header">
       <div class="inner-header-left">
-        Stylized
+        <a href="/">Stylized</a>
       </div>
 
       <div class="inner-header-right">
         <nb-actions nbPopoverTrigger="noop" nbPopover="Switch between webcam and upload mode and choose your style.">
-          <nb-action *ngIf="(routedUrl$ | async) === '/'" (click)="routeToUpload($event)" title="Upload"
+          <nb-action *ngIf="(routedUrl$ | async) === '/webcam'" (click)="routeToUpload($event)" title="Upload"
                      icon="cloud-upload-outline"></nb-action>
           <nb-action *ngIf="(routedUrl$ | async) === '/upload'" (click)="routeToCamera($event)" title="Webcam"
                      icon="camera-outline"></nb-action>
-          <nb-action (click)="toggleSidebar($event)" title="Styles" icon="image-outline"></nb-action>
+
+
+          <nb-action *ngIf="(routedUrl$ | async) === '/webcam' || (routedUrl$ | async) === '/upload'"
+                     (click)="toggleSidebar($event)" title="Styles" icon="image-outline"></nb-action>
         </nb-actions>
       </div>
     </div>
   </nb-layout-header>
 
+  <nb-layout-footer>
+    <footer>
+      <ul>
+        <li>
+          <a routerLink="/">Home</a>
+        </li>
+        <li>
+          <a routerLink="/terms">Impressum</a>
+        </li>
+        <li>
+          <a routerLink="/privacy">Datenschutzerklärung</a>
+        </li>
+      </ul>
+    </footer>
+  </nb-layout-footer>
+
+  <nb-layout-column>
+    <router-outlet></router-outlet>
+  </nb-layout-column>
 
   <nb-sidebar right state="collapsed" tag="main" fixed>
     <app-sidebar></app-sidebar>
   </nb-sidebar>
-
-  <nb-layout-column >
-    <router-outlet></router-outlet>
-  </nb-layout-column>
 
 
 </nb-layout>

@@ -70,7 +70,7 @@ export class LayoutComponent implements OnInit, AfterViewInit {
   routeToCamera(event: Event) {
     event.preventDefault();
 
-    this.router.navigate(['/']);
+    this.router.navigate(['/webcam']);
   }
 
   routeToUpload(event: Event) {
